@@ -330,6 +330,13 @@ public class Program {
             }return true;
         }return false;
     }
+
+    /**
+     * Проверка наличия следующей ячейки для check4
+     * @param x
+     * @param y
+     * @return
+     */
     static boolean hasNext(int x, int y){
         return x + 1 < fieldSizeX && y - 1 >= 0;
     }
