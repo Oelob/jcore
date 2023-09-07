@@ -7,10 +7,12 @@ import java.util.Scanner;
 
 public class Program {
 
-    //private static final int WIN_COUNT = 4; // Выигрышная комбинация
+
     private static final char DOT_HUMAN = 'X'; // Фишка игрока - человек
     private static final char DOT_AI = '0'; // Фишка игрока - компьютер
     private static final char DOT_EMPTY = '*'; // Признак пустого поля
+
+
 
     private static final Scanner scanner = new Scanner(System.in);
     private static final Random random = new Random();
@@ -19,6 +21,7 @@ public class Program {
 
     private static int fieldSizeX; // Размерность игрового поля
     private static int fieldSizeY; // Размерность игрового поля
+    private static int WIN_COUNT; // Выигрышная комбинация
 
 
     public static void main(String[] args) {
@@ -44,7 +47,7 @@ public class Program {
     }
 
     /**
-     * добавлен метод установки размера игрового поля
+     * ДОБАВИЛ МЕТОД УСТАНОВКИ РАЗМЕРА ИГРОВОГО ПОЛЯ
      */
     private static void coordinates() {
         System.out.print("Введите размер игрового поля по оси 'X': ");
@@ -58,14 +61,27 @@ public class Program {
             scanner.nextLine();
         }
     }
+
+    /**
+     * ДОБАВИЛ МЕТОД ОПРЕДЕЛЕНИЯ РАЗМЕРА ПОБЕДНОЙ КОМБИНАЦИИ
+     */
+    private static void setWinParametr(){
+        System.out.print("Введите размер победной комбинации: ");
+        if (scanner.hasNextInt()){
+            WIN_COUNT = scanner.nextInt();
+            scanner.nextLine();
+        }
+    }
     /**
      * Инициализация объектов игры
+     * ДОБАВИЛ ОПРЕДЕЛЕНИЕ РАЗМЕРОВ ПОЛЯ И ПОБЕДНОЙ КОМБИНАЦИИ В МЕТОД ИНИЦИАЛИЗАЦИИ ПОЛЯ
      */
     private static void initialize(){
        coordinates();
+       setWinParametr();
         field = new char[fieldSizeX][fieldSizeY];
-        for (int x = 0; x < fieldSizeX; x++){
-            for (int y = 0; y < fieldSizeY; y++){
+        for (int y = 0; y < fieldSizeY; y++){
+            for (int x = 0; x < fieldSizeX; x++){
                 field[x][y] = DOT_EMPTY;
             }
         }
@@ -88,9 +104,9 @@ public class Program {
         }
         System.out.println();
 
-        for (int x = 0; x < fieldSizeX; x++){
-            System.out.print(x + 1 + "|");
-            for (int y = 0; y < fieldSizeY; y++){
+        for (int y = 0; y < fieldSizeY; y++){
+            System.out.print(y + 1 + "|");
+            for (int x = 0; x < fieldSizeX; x++){
                 System.out.print(field[x][y] + "|");
             }
             System.out.println();
@@ -105,7 +121,7 @@ public class Program {
 
     /**
      * Обработка хода игрока (человек)
-     * добавил в код автоматическое заполнение длины поля в запросе координат
+     *ДОБАВИЛ В КОД АВТОМАТИЧЕСКОЕ ЗАПОЛНЕНИЕ ДЛИНЫ ПОЛЯ В ЗАПРОСЕ КООРДНАТ
      */
     private static void humanTurn(){
         int x, y;
@@ -182,7 +198,7 @@ public class Program {
      * @return
      */
     private static boolean checkGameState(char c, String s){
-        if (checkWin(c)) {
+        if (checkWinV2(c)) {
             System.out.println(s);
             return true;
         }
@@ -223,15 +239,99 @@ public class Program {
 
         for (int x = 0; x < fieldSizeX; x++){
             for (int y = 0; y < fieldSizeY; y++){
-
+                if (field[x][y]==c && (check1(x,y) || check2(x,y) || check3(x,y) || check4(x,y))){
+                    return true;
+                }
             }
         }
 
         return false;
     }
 
-    static boolean check1(int x, int y, int win){
-        return false;
+    /**
+     * Проверка по оси Х
+     * @param x
+     * @param y
+     * @return
+     */
+    static boolean check1(int x, int y) {
+        if (!(x+WIN_COUNT > fieldSizeX)) {
+            int count = 0;
+            while (count < WIN_COUNT-1) {
+
+                if (field[x][y] == field[x + 1][y]) {
+                    x++;
+                    count++;
+                } else return false;
+
+            }
+            return true;
+        }else return false;
+    }
+
+    /**
+     * Проверка по оси Y
+     * @param x
+     * @param y
+     * @return
+     */
+    static boolean check2(int x, int y) {
+        if (!(y+WIN_COUNT > fieldSizeY)) {
+            int count = 0;
+            while (count < WIN_COUNT-1) {
+
+                if (field[x][y] == field[x][y+1]) {
+                    y++;
+                    count++;
+                } else return false;
+            }
+            return true;
+        }else return false;
+    }
+
+    /**
+     * Проверка по диагонали вниз
+     * @param x
+     * @param y
+     * @return
+     */
+    static boolean check3(int x, int y) {
+
+        if ((y+WIN_COUNT<=fieldSizeY)&&(x+WIN_COUNT<=fieldSizeX)){
+            int count = 0;
+            while (count < WIN_COUNT-1) {
+
+                if (field[x][y] == field[x+1][y+1]) {
+                    x++;
+                    y++;
+                    count++;
+                } else return false;
+            }
+            return true;
+        }else return false;
+    }
+
+    /**
+     * Проверка по диагонали вверх
+     * @param x
+     * @param y
+     * @return
+     */
+    static boolean check4(int x, int y) {
+        if (hasNext(x,y)){
+            int count = 0;
+            while (count < WIN_COUNT-1) {
+
+                if (hasNext(x,y) && field[x][y] == field[x+1][y-1]) {
+                    x++;
+                    y--;
+                    count++;
+                } else return false;
+            }return true;
+        }return false;
+    }
+    static boolean hasNext(int x, int y){
+        return x + 1 < fieldSizeX && y - 1 >= 0;
     }
 
     /**
