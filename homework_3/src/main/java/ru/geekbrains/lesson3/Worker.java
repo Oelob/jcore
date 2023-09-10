@@ -7,8 +7,8 @@ import java.util.List;
 
 public class Worker extends Employee{
 
-    private Worker(String surName, String name, Date age, double salary){
-        super(surName, name, age, salary);
+    private Worker(String surName, String name, Date birthday, double salary){
+        super(surName, name, birthday, salary);
         //System.out.println("Constructor - Worker");
     }
 
@@ -34,7 +34,7 @@ public class Worker extends Employee{
 
     @Override
     public String toString() {
-        return String.format("%s %s; Рабочий; Среднемесячная заработная плата (фиксированная месячная оплата): %.2f (руб.)",
-                surName, name, salary);
+        return String.format("%s %s; День рождения - %s; Рабочий; Среднемесячная заработная плата (фиксированная месячная оплата): %.2f (руб.)",
+                surName, name, showBirthday(birthday), salary);
     }
 }
