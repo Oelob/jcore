@@ -1,7 +1,6 @@
 package ru.geekbrains.lesson3;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -11,8 +10,8 @@ import java.util.List;
 public class Freelancer extends Employee{
 
 
-    protected Freelancer(String surName, String name, Date age) {
-        super(surName, name, age);
+    protected Freelancer(String surName, String name, Date birthday) {
+        super(surName, name, birthday);
         this.salary = random.nextDouble(150,500);
     }
 
@@ -38,6 +37,6 @@ public class Freelancer extends Employee{
     @Override
     public String toString() {
         return String.format("%s %s; Дата рождения - %s; Фрилансер; Среднемесячная заработная плата (почасовая): %.2f (руб.)",
-                surName, name, showBirthday(age), calculateSalary());
+                surName, name, showBirthday(birthday), calculateSalary());
     }
 }

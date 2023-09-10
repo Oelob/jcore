@@ -1,14 +1,11 @@
 package ru.geekbrains.lesson3;
 
-import org.w3c.dom.CDATASection;
 
-
-import java.sql.Time;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.GregorianCalendar;
+import java.util.List;
 import java.util.Random;
 
 public abstract class Employee implements Comparable<Employee> {
@@ -34,7 +31,7 @@ public abstract class Employee implements Comparable<Employee> {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", surName='" + surName + '\'' +
-                ", age='" + age + '\'' +
+                ", birthday='" + birthday + '\'' +
                 ", salary=" + salary +
                 '}';
     }
@@ -51,6 +48,14 @@ public abstract class Employee implements Comparable<Employee> {
         return result;
     }
 
+    /**
+     * Метод случайного выбора (используется в создании общего списка сотрудников)
+     * @return
+     */
+    public static Boolean randomChoice(){
+        return random.nextBoolean();
+    }
+
     //endregion
 
     //region Constructors And Initializers
@@ -63,21 +68,21 @@ public abstract class Employee implements Comparable<Employee> {
     private Employee(){
     }
 
-    protected Employee(String surName, String name, Date age){
+    protected Employee(String surName, String name, Date birthday){
        this.surName = surName;
        this.name = name;
-       this.age = age;
+       this.birthday = birthday;
        this.salary = 500;
     }
 
-    protected Employee(String surName, String name, Date age, double salary ){
+    protected Employee(String surName, String name, Date birthday, double salary ){
         //System.out.println("Constructor - Employee");
         if (salary < 500){
             throw new RuntimeException("Ставка заработной платы должна быть не менее 500");
         }
         this.surName = surName;
         this.name = name;
-        this.age = age;
+        this.birthday = birthday;
         this.salary = salary;
     }
 
@@ -101,8 +106,7 @@ public abstract class Employee implements Comparable<Employee> {
         return salary;
     }
 
-    public Date getAge() {return age;
-    }
+    public Date getBirthday() {return birthday;}
 
     public void setSalary(double salary) {
         if (salary < 30000){
@@ -136,7 +140,7 @@ public abstract class Employee implements Comparable<Employee> {
      * Дата рождения
      */
 
-    protected Date age = new Date();
+    protected Date birthday = new Date();
     //endregion
 
     //region Static Fields
@@ -145,16 +149,16 @@ public abstract class Employee implements Comparable<Employee> {
     protected static String[] surNames = new String[] { "Григорьев", "Фокин", "Шестаков", "Хохлов", "Шубин", "Бирюков", "Копылов", "Горбунов", "Лыткин", "Соколов" };
 
     protected static Date[] birthdays = {
-            new Date(2012, 12, 20),
-            new Date(2000, 01, 31),
-            new Date (1998, 12, 23),
-            new Date (1995, 01, 22),
-            new Date (1997, 02, 20),
-            new Date (1999, 03, 18),
-            new Date (2000, 04, 16),
-            new Date (2001, 05, 14),
-            new Date (2002, 06, 12),
-            new Date (2003, 07, 10)};
+            new Date(112, 12, 20),
+            new Date(100, 01, 31),
+            new Date (98, 12, 23),
+            new Date (95, 01, 22),
+            new Date (97, 02, 20),
+            new Date (99, 03, 18),
+            new Date (100, 04, 16),
+            new Date (101, 05, 14),
+            new Date (102, 06, 12),
+            new Date (103, 07, 10)};
 
 
     protected static Random random = new Random();
