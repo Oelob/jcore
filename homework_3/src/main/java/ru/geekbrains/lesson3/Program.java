@@ -14,21 +14,20 @@ public class Program {
 
 //       List<Employee> employees = Freelancer.getEmployees(15);
 //
-        List<Employee> employees = getAllEmployees(15);
+//        List<Employee> employees = getAllEmployees(15);
 //        for (Employee employee: employees) {
 //            System.out.println(employee);
 //        }
 
-
-
-        Collections.sort(employees, new EmployeeAgeCoparator());
+        Staff lst1 = new Staff(10);
 
 //
+
 //        Collections.sort(employees, new EmployeeNameComparator());
 //        System.out.println();
 //
-        for (Employee employee: employees) {
-            System.out.println(employee);
+        for (Employee empl: lst1) {
+            System.out.println(empl);
         }
     }
 
