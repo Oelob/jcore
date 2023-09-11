@@ -35,6 +35,6 @@ public class Worker extends Employee{
     @Override
     public String toString() {
         return String.format("%s %s; День рождения - %s; Рабочий; Среднемесячная заработная плата (фиксированная месячная оплата): %.2f (руб.)",
-                surName, name, showBirthday(birthday), salary);
+                surName, name, showBirthday(birthday), calculateSalary());
     }
 }
