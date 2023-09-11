@@ -6,8 +6,10 @@ import static ru.geekbrains.lesson3.Employee.randomChoice;
 
 public class Staff implements Iterable<Employee>{
 
+//region Fields
     protected List<Employee> list;
     protected int count;
+//endregion
 
     public Staff (int count)
     {
@@ -20,7 +22,7 @@ public class Staff implements Iterable<Employee>{
                 this.list.add(Worker.getInstance());
         }
     }
-
+//region Iterator
     @Override
     public Iterator<Employee> iterator() {
         return new StaffIterator();
@@ -41,5 +43,5 @@ public class Staff implements Iterable<Employee>{
                 return list.get(count++);
         }
     }
-
+//endregion
 }
