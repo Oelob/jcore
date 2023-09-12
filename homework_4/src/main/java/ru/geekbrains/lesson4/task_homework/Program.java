@@ -5,13 +5,20 @@ public class Program {
 
         String[][] example = {{"2","4","5","1"},
                               {"5","4","6","4"},
-                              {"4","?","4","5"},
+                              {"4","7","4","5"},
                               {"3","5","4","5"}};
 
         System.out.println(sum(example));
 
     }
 
+    /**
+     * Метод проверки двумерного массива 4х4 и суммирования его элементов
+     * @param array - принимаемый двумерный массив
+     * @return
+     * @throws MyArraySizeException - исключение, возникающее при недопустимом размере массива
+     * @throws MyArrayDataException - исключение, возникающее при недопустимом значении в массиве
+     */
     public static int sum (String[][] array) throws MyArraySizeException, MyArrayDataException {
         if (array.length != 4 || array[0].length != 4) {throw new MyArraySizeException("Неверный размер массива!");}
         int result = 0;
