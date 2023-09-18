@@ -5,7 +5,7 @@ public class Program {
 
         String[][] example = {{"2","4","5","1"},
                               {"5","4","6","4"},
-                              {"4","7","4","5"},
+                              {"4","7","?","5"},
                               {"3","5","4","5"}};
 
         System.out.println(sum(example));
@@ -27,7 +27,6 @@ public class Program {
                 try {
                     int temp = Integer.parseInt(array[i][g]);
                     result = result + temp;
-
                 } catch (NumberFormatException e) {
                     throw new MyArrayDataException(String.format("В ячейке array[%d][%d] неверный символ", i,g));
                 }
