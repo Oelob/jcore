@@ -26,6 +26,9 @@ public class Tree {
             System.out.print("├─");
             indent += "│ ";
         }
+        /**
+         * добавил проверку на файл и вывод имени файла
+         */
         if (file.isFile()) {
             System.out.println(file.getName());
         }else if (file.isDirectory()) {
@@ -46,7 +49,8 @@ public class Tree {
                 if (files[i].isDirectory()) {
                     subDirCounter++;
                     print(files[i], indent, subDirCounter == subDirTotal);
-                }else if (files[i].isFile()){
+                }else if (files[i].isFile()) //добавил рекурсию, если это файл
+                {
                     print(files[i], indent, i+1 == files.length);
                 }
 
