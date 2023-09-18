@@ -26,26 +26,32 @@ public class Tree {
             System.out.print("├─");
             indent += "│ ";
         }
-        System.out.println(file.getName());
+        if (file.isFile()) {
+            System.out.println(file.getName());
+        }else if (file.isDirectory()) {
+            System.out.println(file.getName());
 
-        File[] files = file.listFiles();
-        if (files == null)
-            return;
+            File[] files = file.listFiles();
+            if (files == null)
+                return;
 
-        int subDirTotal = 0;
-        for (int i = 0; i < files.length; i++){
-            if (files[i].isDirectory())
-                subDirTotal++;
-        }
+            int subDirTotal = 0;
+            for (int i = 0; i < files.length; i++) {
+                if (files[i].isDirectory())
+                    subDirTotal++;
+            }
 
-        int subDirCounter = 0;
-        for (int i = 0; i < files.length; i++){
-            if (files[i].isDirectory()){
-                subDirCounter++;
-                print(files[i], indent, subDirCounter == subDirTotal);
+            int subDirCounter = 0;
+            for (int i = 0; i < files.length; i++) {
+                if (files[i].isDirectory()) {
+                    subDirCounter++;
+                    print(files[i], indent, subDirCounter == subDirTotal);
+                }else if (files[i].isFile()){
+                    print(files[i], indent, i+1 == files.length);
+                }
+
             }
         }
-
     }
 
 }
